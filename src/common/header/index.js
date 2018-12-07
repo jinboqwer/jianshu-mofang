@@ -23,8 +23,7 @@ class Header extends Component {
                     <SearchWrapper>
                         <NavSearch />
                         <i className="iconfont">&#xe60b;</i>
-                    </SearchWrapper>
-                    
+                    </SearchWrapper>    
                 </Nav>
                 <Addition>
                     <Button className='writting'>
