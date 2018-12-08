@@ -63,6 +63,9 @@ export const NavSearch = styled.input.attrs({
     &::placeholder: {
         color: #999;
     }
+    &.focused {
+        width: 200px;
+    }
 `;
 
 export const Addition = styled.div`
@@ -92,6 +95,19 @@ export const Button = styled.div`
 export const SearchWrapper = styled.div`
     position: relative;
     float:left;
+    .slide-enter {
+        transition: all .2s ease-out;
+    }
+    .slide-enter-active {
+        width: 200px
+    }
+    .slide-exit {
+        transition: all .2s ease-out;
+    }
+    .slide-exit-active {
+        width: 160px
+    }
+
     .iconfont {
         position: absolute;
         right: 5px;
@@ -100,6 +116,10 @@ export const SearchWrapper = styled.div`
         line-height: 30px;
         border-radius: 15px;
         text-align: center;
+        &.focused {
+            background: #777;
+            color: #fff;
+        }
     }
 
 `
