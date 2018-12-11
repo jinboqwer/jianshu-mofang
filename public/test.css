@@ -71,5 +71,22 @@ a {
     table {
         border-collapse: collapse;
         border-spacing: 0;
+
+
+
+        position: absolute;
+        width: 240px;
+        left: 0;
+        top: 56px;
+        overflow: hidden;
+
+        margin-top: 20px;
+        margin-bottom: 15px;
+        line-height:20px;
+        font-size: 14px;
+        color: #969696;
+
+        float: right;
+        font-size: 14px;
     }
     
