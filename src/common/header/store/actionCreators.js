@@ -1,17 +1,26 @@
 import { constants } from './index';
 import axios from 'axios';
+import { fromJS } from 'immutable';
 
-export const  searchFocus = () => ({
+export const searchFocus = () => ({
     type: constants.SEARCH_FOCUS
 }) 
-export const  searchBlur = () => ({
+export const searchBlur = () => ({
     type: constants.SEARCH_BLUR
 }) 
 
+export const searchGetList = (data) => ({
+    type: constants.SEARCH_GET_LIST,
+    data: fromJS(data)
+})
+
 export const  searchList = () => {
-    return (dispath) => {
-        axios.get('./data.json').then((ref) => {
-            console.log(ref);
-        })
+    return (dispatch) => {
+        axios.get('/api/data.json').then((res) => {
+            const data = res.data.data;
+            dispatch(searchGetList(data));
+        }).catch((error) => {
+            console.log(error);
+            });
     }
 }
