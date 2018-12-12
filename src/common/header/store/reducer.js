@@ -2,7 +2,8 @@ import { constants } from './index';
 import { fromJS } from 'immutable';
 
 const defaultState = fromJS({
-    focused: false
+    focused: false,
+    list: []
 });
 
 const reducer = (state = defaultState, action) => {
