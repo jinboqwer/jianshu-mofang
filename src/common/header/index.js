@@ -22,7 +22,9 @@ import { connect } from 'react-redux';
 
 
 class Header extends Component {
+
     render() {
+        const { focused, handleFocus, handleBlur } = this.props;
         return (
             <HeaderWrapper>
                 <Logo />
@@ -33,19 +35,19 @@ class Header extends Component {
                     <NavItem className='right'><i className="iconfont">&#xe636;</i></NavItem>
                     <SearchWrapper>
                         <CSSTransition
-                            in={this.props.focused}
+                            in={focused}
                             timeout={200}
                             classNames="slide"
                         >
                             <NavSearch
-                                className={this.props.focused ? 'focused' : ''}
-                                onFocus={this.props.handleFocus}
-                                onBlur={this.props.handleBlur}
+                                className={focused ? 'focused' : ''}
+                                onFocus={handleFocus}
+                                onBlur={handleBlur}
                             />
                         </CSSTransition>
 
-                        <i className={this.props.focused ? 'focused iconfont' : 'iconfont'}>&#xe60b;</i>
-                        {this.getListArea(this.props.focused)}
+                        <i className={focused ? 'focused iconfont' : 'iconfont'}>&#xe60b;</i>
+                        {this.getListArea()}
                     </SearchWrapper>
                 </Nav>
                 <Addition>
@@ -59,8 +61,9 @@ class Header extends Component {
         )
     }
 
-    getListArea(show) {
-        if (show) {
+    getListArea() {
+        const { focused, list } = this.props;
+        if (focused) {
             return (
                 <SearchInfo>
                     <SearchInfoTitle>
@@ -68,7 +71,7 @@ class Header extends Component {
                         <SearchInfoSwitch>换一换</SearchInfoSwitch>
                     </SearchInfoTitle>
                         <SearchInfoList>
-                            {this.props.list.map((item) => {
+                            {list.map((item) => {
                                 return(<SearchInfoItem key={item}>{item}</SearchInfoItem>)
                                
                             })}
