@@ -72,7 +72,9 @@ a {
         border-collapse: collapse;
         border-spacing: 0;
 
-
+        transform: rotate(0);
+        transform-origin: center center;
+        transition: all .2s ease-in
 
         position: absolute;
         width: 240px;
