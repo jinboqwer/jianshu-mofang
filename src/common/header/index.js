@@ -62,22 +62,31 @@ class Header extends Component {
     }
 
     getListArea() {
-        const { focused, list } = this.props;
-        if (focused) {
+        const { focused, list, page, totalPage, mouseIn, handleOnMouseEnter, handleOnMouseLeave, handleOnClick } = this.props;
+        const jsList = list.toJS();
+        const listData = [];
+
+        for (let index = (page - 1) * 10; index < page * 10; index++) {
+            if (jsList[index]) {
+                listData.push(
+                    <SearchInfoItem key={jsList[index]}>{jsList[index]}</SearchInfoItem>
+                )
+            }
+        }
+
+
+
+        if (focused || mouseIn) {
             return (
-                <SearchInfo>
+                <SearchInfo onMouseEnter={handleOnMouseEnter} onMouseLeave={handleOnMouseLeave}>
                     <SearchInfoTitle>
                         热门搜索
-                        <SearchInfoSwitch>换一换</SearchInfoSwitch>
+                        <SearchInfoSwitch onClick={() => (handleOnClick(page, totalPage))}>换一换</SearchInfoSwitch>
                     </SearchInfoTitle>
-                        <SearchInfoList>
-                            {list.map((item) => {
-                                return(<SearchInfoItem key={item}>{item}</SearchInfoItem>)
-                               
-                            })}
-                             
-                        </SearchInfoList>
-                </SearchInfo>          
+                    <SearchInfoList>
+                        {listData}
+                    </SearchInfoList>
+                </SearchInfo>
             )
         } else {
             return null
@@ -90,7 +99,10 @@ class Header extends Component {
 const mapStateToProps = (state) => {
     return {
         focused: state.get('header').get('focused'),
-        list: state.get('header').get('list')
+        list: state.get('header').get('list'),
+        page: state.get('header').get('page'),
+        totalPage: state.get('header').get('totalPage'),
+        mouseIn: state.get('header').get('mouseIn')
     }
 }
 const mapDisPatchToProps = (dispath) => {
@@ -101,6 +113,22 @@ const mapDisPatchToProps = (dispath) => {
         },
         handleBlur() {
             dispath(actionCreators.searchBlur());
+        },
+        handleOnMouseEnter() {
+            dispath(actionCreators.handleOnMouseEnter())
+        },
+        handleOnMouseLeave() {
+            dispath(actionCreators.handleOnMouseLeave())
+        },
+        handleOnClick(page, totalPage) {
+            let newPage;
+            if (page < totalPage) {
+                newPage = page + 1;
+            } else {
+                newPage = 1;
+            }
+
+            dispath(actionCreators.handleOnClick(newPage))
         }
     }
 

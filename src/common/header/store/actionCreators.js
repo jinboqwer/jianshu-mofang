@@ -4,7 +4,8 @@ import { fromJS } from 'immutable';
 
 const searchGetList = (data) => ({
     type: constants.SEARCH_GET_LIST,
-    data: fromJS(data)
+    data: fromJS(data),
+    totalPage : Math.ceil(data.length / 10)
 })
 
 export const searchFocus = () => ({
@@ -12,6 +13,22 @@ export const searchFocus = () => ({
 }) 
 export const searchBlur = () => ({
     type: constants.SEARCH_BLUR
+}) 
+
+export const handleOnMouseEnter = () => ({
+    type: constants.HANDLE_ON_MOUSE_ENTER
+}) 
+
+export const handleOnMouseLeave = () => ({
+    type: constants.HANDLE_ON_MOUSE_LEAVE
+}) 
+
+export const handleOnClick = (page) => (
+
+{
+    type: constants.HANDLE_ON_CLICK,
+    page: page
+
 }) 
 
 export const  searchList = () => {
