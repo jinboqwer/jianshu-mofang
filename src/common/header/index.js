@@ -24,7 +24,7 @@ import { connect } from 'react-redux';
 class Header extends Component {
 
     render() {
-        const { focused, handleFocus, handleBlur } = this.props;
+        const { focused, list, handleFocus, handleBlur } = this.props;
         return (
             <HeaderWrapper>
                 <Logo />
@@ -41,7 +41,7 @@ class Header extends Component {
                         >
                             <NavSearch
                                 className={focused ? 'focused' : ''}
-                                onFocus={handleFocus}
+                                onFocus={() => (handleFocus(list))}
                                 onBlur={handleBlur}
                             />
                         </CSSTransition>
@@ -109,8 +109,11 @@ const mapStateToProps = (state) => {
 }
 const mapDisPatchToProps = (dispath) => {
     return {
-        handleFocus() {
-            dispath(actionCreators.searchList())
+        handleFocus(list) {
+            if (list.size === 0) {
+                dispath(actionCreators.searchList());
+            }
+            
             dispath(actionCreators.searchFocus());
         },
         handleBlur() {
