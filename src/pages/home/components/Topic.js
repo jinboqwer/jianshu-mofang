@@ -1,37 +1,27 @@
 import React, { Component } from 'react';
 import { TopicWrapper, TopicItem } from '../style';
+import { connect } from 'react-redux';
 
 class Topic extends Component {
     render() {
+        const { list } = this.props;
         return (
             <TopicWrapper>
-                <TopicItem>
-                    <img src='//upload.jianshu.io/users/upload_avatars/8781442/79bf6acc-5dd3-49d1-9e2b-6c58066c1442.jpg?imageMogr2/auto-orient/strip|imageView2/1/w/96/h/96/format/webp' alt='社会热点' />
-                    社会热点
-                </TopicItem>
-                <TopicItem>
-                    <img src='//upload.jianshu.io/users/upload_avatars/8781442/79bf6acc-5dd3-49d1-9e2b-6c58066c1442.jpg?imageMogr2/auto-orient/strip|imageView2/1/w/96/h/96/format/webp' alt='社会热点' />
-                    社会热点
-                </TopicItem>
-                <TopicItem>
-                    <img src='//upload.jianshu.io/users/upload_avatars/8781442/79bf6acc-5dd3-49d1-9e2b-6c58066c1442.jpg?imageMogr2/auto-orient/strip|imageView2/1/w/96/h/96/format/webp' alt='社会热点' />
-                    社会热点
-                </TopicItem>
-                <TopicItem>
-                    <img src='//upload.jianshu.io/users/upload_avatars/8781442/79bf6acc-5dd3-49d1-9e2b-6c58066c1442.jpg?imageMogr2/auto-orient/strip|imageView2/1/w/96/h/96/format/webp' alt='社会热点' />
-                    社会热点
-                </TopicItem>
-                <TopicItem>
-                    <img src='//upload.jianshu.io/users/upload_avatars/8781442/79bf6acc-5dd3-49d1-9e2b-6c58066c1442.jpg?imageMogr2/auto-orient/strip|imageView2/1/w/96/h/96/format/webp' alt='社会热点' />
-                    社会热点
-                </TopicItem>
-                <TopicItem>
-                    <img src='//upload.jianshu.io/users/upload_avatars/8781442/79bf6acc-5dd3-49d1-9e2b-6c58066c1442.jpg?imageMogr2/auto-orient/strip|imageView2/1/w/96/h/96/format/webp' alt='社会热点' />
-                    社会热点
-                </TopicItem>
+                {
+                    list.map((item) => (
+                        <TopicItem key={item.get('id')}> 
+                            <img src={item.get('imgUrl')} alt={item.get('title')} />
+                            {item.get('title')}
+                        </TopicItem>
+                    ))
+                }
             </TopicWrapper>
         )
     }
 }
 
-export default Topic;
+const mapState = (state) => ({
+    list: state.get('home').get('topicList')
+})
+
+export default connect(mapState, null)(Topic);
